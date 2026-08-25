@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: pdfmake-playground
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build && npm install --prefix dev-playground
+    startCommand: node dev-playground/server.js
+    envVars:
+      - key: PLAYGROUND_USER
+        sync: false
+      - key: PLAYGROUND_PASSWORD
+        sync: false

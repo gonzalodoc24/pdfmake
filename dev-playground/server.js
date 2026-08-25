@@ -8,6 +8,28 @@ var pdfmake = require('../js/index');
 
 var app = express();
 
+var PLAYGROUND_USER = process.env.PLAYGROUND_USER;
+var PLAYGROUND_PASSWORD = process.env.PLAYGROUND_PASSWORD;
+
+if (PLAYGROUND_USER && PLAYGROUND_PASSWORD) {
+	app.use(function (req, res, next) {
+		var token = (req.headers.authorization || '').split(' ')[1] || '';
+		var decoded = Buffer.from(token, 'base64').toString();
+		var separatorIndex = decoded.indexOf(':');
+		var user = decoded.substring(0, separatorIndex);
+		var password = decoded.substring(separatorIndex + 1);
+
+		if (user === PLAYGROUND_USER && password === PLAYGROUND_PASSWORD) {
+			return next();
+		}
+
+		res.set('WWW-Authenticate', 'Basic realm="pdfmake playground"');
+		res.status(401).send('Authentication required');
+	});
+} else {
+	console.warn('PLAYGROUND_USER/PLAYGROUND_PASSWORD not set - playground is running WITHOUT authentication');
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
