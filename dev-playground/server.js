@@ -15,10 +15,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 function createPdfBinary(docDefinition) {
 	var fonts = {
 		Roboto: {
-			normal: path.join(__dirname, '..', 'examples', '/fonts/Roboto-Regular.ttf'),
-			bold: path.join(__dirname, '..', 'examples', '/fonts/Roboto-Medium.ttf'),
-			italics: path.join(__dirname, '..', 'examples', '/fonts/Roboto-Italic.ttf'),
-			bolditalics: path.join(__dirname, '..', 'examples', '/fonts/Roboto-MediumItalic.ttf')
+			normal: path.join(__dirname, '..', 'fonts', 'Roboto', 'Roboto-Regular.ttf'),
+			bold: path.join(__dirname, '..', 'fonts', 'Roboto', 'Roboto-Medium.ttf'),
+			italics: path.join(__dirname, '..', 'fonts', 'Roboto', 'Roboto-Italic.ttf'),
+			bolditalics: path.join(__dirname, '..', 'fonts', 'Roboto', 'Roboto-MediumItalic.ttf')
 		}
 	};
 
